@@ -1,0 +1,5 @@
+val textArray= sc.textFile("file:///root/sampledata/product_click.log")
+val a = y.map(y=>y.split(" "))
+val b = a.map(a=>a(1))
+val x = b.map(b=>(b,1))
+val a = x.reduceByKey(_+_)

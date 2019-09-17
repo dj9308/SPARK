@@ -1,0 +1,9 @@
+val y= sc.textFile("file:///root/sampledata/product_click.log")
+val a = y.map(y=>y.split(" "))
+val b = a.map(a=>a(1))
+val x = b.map(b=>(b,1))
+val a = x.reduceByKey(_+_)
+val z = a.map{a=>(a._2,a._1)}
+val x = z.sortByKey(false)
+val z = x.map{x=>(x._2,x._1)}
+z.collect
