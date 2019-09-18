@@ -1,0 +1,22 @@
+9.18 ½Ç½À 2.
+val productRDD = sc.textFile("/edudata/product_click.log")
+
+val productSplit = productRDD.flatMap(x => x.split(" "))
+
+val productFilter = productSplit.filter(e => e.length==4)
+
+val productMap = productFilter.map(x => (x,1))
+
+val productReduce = productMap.reduceByKey((x,y) => (x+y))
+
+val sortedProductWCRDD = productReduce.sortBy(x => -x._2)
+
+case class product(pid: String, cnt: Int)
+
+val productDF = sortedProductWCRDD.map{record =>
+val pid = record._1
+val cnt = record._2
+product(pid,cnt)
+}.toDF
+
+productDF.show
